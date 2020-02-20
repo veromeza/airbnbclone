@@ -1,0 +1,17 @@
+{
+  "name": "airbnbclone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vero Meza",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.10.1",
+    "graphql": "^14.6.0",
+    "mongoose": "^5.9.1",
+    "nodemon": "^2.0.2"
+  }
+}
