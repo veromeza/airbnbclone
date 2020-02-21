@@ -8,7 +8,7 @@ async function start () {
 
     const typeDefs = await importSchema(__dirname + '/schema.graphql');
 
-    const MONGO_URI = "mongodb+srv://airbnb:airbnb@api-proyectofinal-8osbm.mongodb.net/test?retryWrites=true&w=majority"
+    const MONGO_URI = "mongodb+srv://airbnb:airbnb@api-proyectofinal-8osbm.mongodb.net/airbnb?retryWrites=true&w=majority"
 
 
     mongoose.connect(MONGO_URI,{

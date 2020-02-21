@@ -5,8 +5,8 @@ module.exports = {
 
     createUser:(root,args) => {
 
-        return Users.create(args.data).exec();
+        return Users.create(args.data);
 
     }
-    
+
 }
