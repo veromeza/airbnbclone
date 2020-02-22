@@ -1,6 +1,12 @@
 type Query { #aqui van todos los queries 
 getUsers(is_active:Boolean):[User!]!
 getUser(id:ID,email:String):User
+getHouses(is_active:Boolean,
+              tag:String,
+              city:String,
+              date:String
+              ): [House]
+getHouse(id:ID!, created_by:String):House
 
 }
 
@@ -8,7 +14,40 @@ type Mutation {#aqui van todos los mutations y modificaciones en la base de dato
     createUser(data:Useradd!):User!
     updateUser(id:ID!,data:Userupdate):User!
     deleteUser(id:ID!):User!
+    createHouse(data:Houseadd):House!
+    updateHouse(id:ID!, data:Houseupdate):House!
+    deleteHouse(id:ID!):House
 
+}
+
+input Houseadd {
+  title:String!
+  description:String
+  date:String
+  address:Addressadd
+  created_by:String
+  banner:String
+  tags:[String]
+}
+
+input Addressadd {
+    street:String
+    city:String
+    number:String
+    country:String
+    state:String
+    zip:String
+    late:Float
+    long:Float
+}
+
+input Houseupdate {
+  title:String
+  description:String
+  address:Addressadd
+  date:String
+  banner:String
+  tags:[String]
 }
 
 input Userupdate{
@@ -52,6 +91,7 @@ enum GENDER {
 }
 
 type House {
+    _id:ID!
     title:String
     description:String
     date:Float

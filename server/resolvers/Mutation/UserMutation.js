@@ -1,4 +1,4 @@
-const Users = require('../../models/users');
+const Users = require('../../models/Users');
 
 
 module.exports = {
@@ -7,11 +7,11 @@ module.exports = {
         return Users.create(args.data);
     },
     updateUser:(root,args) => {
-        return Users.findByIdAndUpdate(args.id,{$set:{...args.data}},{new:true});
+        return Users.findByIdAndUpdate(args.id,{$set:{...args.data}},{new:true}).exec();
 
     },
     deleteUser:(root,args) => {
-        return Users.findByIdAndUpdate(args.id, {$set:{is_active:false}},{new:true});
+        return Users.findByIdAndUpdate(args.id, {$set:{is_active:false}},{new:true}).exec();
     }
 
 }
