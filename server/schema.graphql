@@ -6,7 +6,17 @@ getUser(id:ID,email:String):User
 
 type Mutation {#aqui van todos los mutations y modificaciones en la base de datos o la app
     createUser(data:Useradd!):User!
+    updateUser(id:ID!,data:Userupdate):User!
+    deleteUser(id:ID!):User!
 
+}
+
+input Userupdate{
+  first_name:String
+  last_name:String
+  gender:GENDER
+  birth_date:String
+  photo:String
 }
 
 input Useradd{#es para escritura
