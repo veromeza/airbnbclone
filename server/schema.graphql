@@ -7,6 +7,7 @@ getHouses(is_active:Boolean,
               date:String
               ): [House]
 getHouse(id:ID!, created_by:String):House
+login(email:String,password:String):String
 
 }
 
@@ -74,7 +75,8 @@ type User {#ellos van a mapear la base de datos de mongoose, solo son de lectura
   last_name:String
   email:String
   birth_date:String 
-  gender:GENDER 
+  gender:GENDER
+  password:String 
   photo:String
   houses_create:[House]
   houses_asisstants:[House]
