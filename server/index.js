@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { ApolloServer, gql } = require('apollo-server');
 const {importSchema} = require('graphql-import');
 const mongoose = require('mongoose');
@@ -8,8 +10,7 @@ async function start () {
 
     const typeDefs = await importSchema(__dirname + '/schema.graphql');
 
-    const MONGO_URI = "mongodb+srv://airbnb:airbnb@api-proyectofinal-8osbm.mongodb.net/airbnb?retryWrites=true&w=majority"
-
+    const MONGO_URI = process.env.MONGO_URI;
 
     mongoose.connect(MONGO_URI,{
         useNewUrlParser:true,
