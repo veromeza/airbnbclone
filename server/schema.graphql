@@ -1,6 +1,11 @@
+scalar Upload
+
+directive @auth on FIELD_DEFINITION
+
+
 type Query { #aqui van todos los queries 
-getUsers(is_active:Boolean):[User!]!
-getUser(id:ID,email:String):User
+getUsers(is_active:Boolean):[User!]!@auth
+getUser(id:ID,email:String):User@auth
 getHouses(is_active:Boolean,
               tag:String,
               city:String,
@@ -13,11 +18,11 @@ login(email:String,password:String):String
 
 type Mutation {#aqui van todos los mutations y modificaciones en la base de datos o la app
     createUser(data:Useradd!):User!
-    updateUser(id:ID!,data:Userupdate):User!
-    deleteUser(id:ID!):User!
-    createHouse(data:Houseadd):House!
-    updateHouse(id:ID!, data:Houseupdate):House!
-    deleteHouse(id:ID!):House
+    updateUser(id:ID!,data:Userupdate):User!@auth
+    deleteUser(id:ID!):User!@auth
+    createHouse(data:Houseadd):House!@auth
+    updateHouse(id:ID!, data:Houseupdate):House!@auth
+    deleteHouse(id:ID!):House@auth
 
 }
 
@@ -29,6 +34,7 @@ input Houseadd {
   created_by:String
   banner:String
   tags:[String]
+  photo:String
 }
 
 input Addressadd {
@@ -56,7 +62,7 @@ input Userupdate{
   last_name:String
   gender:GENDER
   birth_date:String
-  photo:String
+  photo:Upload
 }
 
 input Useradd{#es para escritura
@@ -66,7 +72,7 @@ input Useradd{#es para escritura
   password:String!
   birth_date:String 
   gender:GENDER 
-  photo:String
+  photo:Upload
 }
 
 type User {#ellos van a mapear la base de datos de mongoose, solo son de lectura 

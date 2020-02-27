@@ -16,4 +16,5 @@ class AuthDirective extends SchemaDirectiveVisitor{
     }
 }
 
-module.exports = AuthDirective
+module.exports = AuthDirective;
+

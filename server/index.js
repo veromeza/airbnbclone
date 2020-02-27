@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const { ApolloServer, gql } = require('apollo-server');
 const {importSchema} = require('graphql-import');
+const { makeExecutableSchema } = require('graphql-tools');
 const mongoose = require('mongoose');
 const resolvers = require('./resolvers');
 const AuthDirective = require ('./resolvers/Directives/AuthDirective');
@@ -23,14 +24,18 @@ async function start () {
     const mongo = mongoose.connection;
     
     mongo.on ('error', error => console.log(error))
-         .once('open',() => console.log('Connected to database'))
+         .once('open',() => console.log('Connected to database'));
+
+         const schema = makeExecutableSchema({
+            typeDefs,
+            resolvers,
+            schemaDirectives:{
+                auth:AuthDirective
+            },
+        });
     
     const server = new ApolloServer({
-        typeDefs,
-        resolvers,
-        schemaDirectives:{
-            auth:AuthDirective
-        },
+        schema,
         context: ({req}) => verifyToken(req)
     });
     
@@ -38,6 +43,14 @@ async function start () {
         console.log(`Server ready set: ${url}`)
     })
 
+    return server;
+
+
+
 };
 
 start();
+
+module.exports = {
+    server:start
+}

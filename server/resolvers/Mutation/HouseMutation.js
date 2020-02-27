@@ -1,10 +1,22 @@
 const Houses = require('../../models/Houses');
 
+const storage = require('../../utils/storage');
+
 module.exports = {
 
-    createHouse:(root,args) =>{
-        console.log(args.data)
-        return Houses.create(args.data);
+
+
+	createHouse:async(root,args,context) =>{
+		args.data.created_by = context.user._id;
+		if (args.data.banner){
+			const { createReadStream } = await args.data.banner;
+			const stream = createReadStream();
+			const image = await storage ({ stream });
+			args.data = {...args.data,banner:image.url}
+		};
+	
+		return Houses.create(args.data);
+
     },
     
     updateHouse:(root, args) =>{
@@ -29,5 +41,5 @@ module.exports = {
     deleteHouse:(root,args) =>{
 
     }
-}
+};
 
