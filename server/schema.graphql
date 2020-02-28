@@ -3,7 +3,7 @@ scalar Upload
 directive @auth on FIELD_DEFINITION
 
 
-type Query { #aqui van todos los queries 
+type Query {  
 getUsers(is_active:Boolean):[User!]!@auth
 getUser(id:ID,email:String):User@auth
 getHouses(is_active:Boolean,
@@ -16,7 +16,7 @@ login(email:String,password:String):String
 
 }
 
-type Mutation {#aqui van todos los mutations y modificaciones en la base de datos o la app
+type Mutation {
     createUser(data:Useradd!):User!
     updateUser(id:ID!,data:Userupdate):User!@auth
     deleteUser(id:ID!):User!@auth
@@ -65,7 +65,7 @@ input Userupdate{
   photo:Upload
 }
 
-input Useradd{#es para escritura
+input Useradd{
   first_name:String!
   last_name:String!
   email:String!
@@ -75,7 +75,7 @@ input Useradd{#es para escritura
   photo:Upload
 }
 
-type User {#ellos van a mapear la base de datos de mongoose, solo son de lectura 
+type User {
   _id:ID!
   first_name:String
   last_name:String

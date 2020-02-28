@@ -23,7 +23,9 @@ async function start () {
     
     const mongo = mongoose.connection;
     
-    mongo.on ('error', error => console.log(error))
+    mongo
+    
+         .on ('error', error => console.log(error))
          .once('open',() => console.log('Connected to database'));
 
          const schema = makeExecutableSchema({
@@ -39,18 +41,18 @@ async function start () {
         context: ({req}) => verifyToken(req)
     });
     
-    server.listen().then(({url}) => {
-        console.log(`Server ready set: ${url}`)
+    server.listen().then(({port}) => {
+        console.log(`Server ready set: ${port}`)
     })
 
-    return server;
+    // return server;
 
 
 
 };
 
-start();
+ start();
 
-module.exports = {
-    server:start
-}
+// module.exports = {
+//     server:start
+// }
