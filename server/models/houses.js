@@ -2,7 +2,7 @@ const mongoose = require ('mongoose')
 
 const Schema = mongoose.Schema;
 
-const EventSchema = new Schema ({
+const HouseSchema = new Schema ({
     
     title:{
         type:String,
@@ -11,6 +11,10 @@ const EventSchema = new Schema ({
     description:{
         type:String,
         required:true
+    },
+    date:{
+        type:Date
+
     },
     address:{
         street:String,
@@ -47,4 +51,6 @@ const EventSchema = new Schema ({
 
     }, {timestamps:true})
 
-    module.exports = mongoose.model('events',EventSchema);
+    module.exports = mongoose.model('houses',HouseSchema);
+
+    

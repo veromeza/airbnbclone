@@ -1,34 +1,56 @@
+require('dotenv').config();
+
 const { ApolloServer, gql } = require('apollo-server');
+const {importSchema} = require('graphql-import');
+const { makeExecutableSchema } = require('graphql-tools');
 const mongoose = require('mongoose');
+const resolvers = require('./resolvers');
+const AuthDirective = require ('./resolvers/Directives/AuthDirective');
+const verifyToken = require('./utils/verifyToken');
 
-const MONGO_URI = "mongodb+srv://airbnb:airbnb@api-proyectofinal-8osbm.mongodb.net/test?retryWrites=true&w=majority"
 
-mongoose.connect(MONGO_URI,{
-    useNewUrlParser:true,
-    useUnifiedTopology:true
-});
+async function start () {
 
-const mongo = mongoose.connection;
+    const typeDefs = await importSchema(__dirname + '/schema.graphql');
 
-mongo.on ('error', error => console.log(error))
-.once('open',() => console.log('Connected to database'))
+    const MONGO_URI = process.env.MONGO_URI;
 
-const typeDefs = gql`
-
-    type Query{
-        prueba(name:String):String
-    }
+    mongoose.connect(MONGO_URI,{
+        useNewUrlParser:true,
+        useUnifiedTopology:true,
+        useCreateIndex:true
+    });
     
-`
+    const mongo = mongoose.connection;
+    
+    mongo.on ('error', error => console.log(error))
+         .once('open',() => console.log('Connected to database'));
 
-const resolvers = {
-    Query:{
-        prueba: (root,args,context,info) => `Hola Mundo ${args.name}`
-    }
+         const schema = makeExecutableSchema({
+            typeDefs,
+            resolvers,
+            schemaDirectives:{
+                auth:AuthDirective
+            },
+        });
+    
+    const server = new ApolloServer({
+        schema,
+        context: ({req}) => verifyToken(req)
+    });
+    
+    server.listen().then(({url}) => {
+        console.log(`Server ready set: ${url}`)
+    })
+
+    return server;
+
+
+
+};
+
+start();
+
+module.exports = {
+    server:start
 }
-
-const server = new ApolloServer({typeDefs,resolvers})
-
-server.listen().then(({url}) => {
-    console.log(`Server ready set: ${url}`)
-})
