@@ -12,6 +12,10 @@ const HouseSchema = new Schema ({
         type:String,
         required:true
     },
+    date:{
+        type:Date
+
+    },
     address:{
         street:String,
         city:String,

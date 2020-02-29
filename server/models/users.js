@@ -1,4 +1,5 @@
 const mongoose = require ('mongoose')
+const bcrypt = require('bcrypt')
 
 const Schema = mongoose.Schema;
 
@@ -48,7 +49,25 @@ const UserSchema = new Schema ({
         default:true
     }
 
-    }, {timestamps:true})
+    }, 
+    
+    {timestamps:true}
+    
+    );
+
+    UserSchema.pre('save',function(next){ //hook mongoose (triggers) -esto es para poder generar hashes
+        const user = this;
+        if(!user.isModified('password')) next();
+        const SALT_FACTOR = parseInt(process.env.SALT_FACTOR);
+        bcrypt.genSalt(SALT_FACTOR,function(error,salt){
+            if(error) return next(error);
+            bcrypt.hash(user.password,salt,function(err,hash){
+                user.password = hash;
+                next ();
+            });
+        });
+
+    });
 
     module.exports = mongoose.model('users',UserSchema);
 
