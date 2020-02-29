@@ -1,4 +1,4 @@
-const Houses = require('../../models/Houses');
+const Houses = require('../../models/houses');
 
 module.exports = {
 
