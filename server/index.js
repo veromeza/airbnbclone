@@ -38,11 +38,16 @@ async function start () {
     
     const server = new ApolloServer({
         schema,
-        context: ({req}) => verifyToken(req)
+        context: ({req}) => verifyToken(req),
+        cors:{
+            origin:process.env.WHITELIST.split(',')
+        }
     });
+
+    const PORT = process.env.PORT || 4000;
     
-    server.listen().then(({port}) => {
-        console.log(`Server ready set: ${port}`)
+    server.listen({port:PORT}).then(({ url }) => {
+        console.log(`Server ready set: ${ url }`)
     })
 
     // return server;
