@@ -1,4 +1,4 @@
-const Houses = require('../../models/houses');
+const Houses = require('../../models/Houses');
 
 const storage = require('../../utils/storage');
 
