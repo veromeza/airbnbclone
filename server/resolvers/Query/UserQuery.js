@@ -1,4 +1,4 @@
-const Users = require('../../models/users');
+const Users = require('../../models/Users');
 const authenticate = require('../../utils/authenticate');
 
 module.exports = {
