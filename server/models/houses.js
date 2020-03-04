@@ -28,7 +28,7 @@ const HouseSchema = new Schema ({
     },
     created_by:{
         type:[Schema.Types.ObjectId],
-        ref:'Users'
+        ref:'users'
     },
     booking:[
         {
