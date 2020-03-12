@@ -13,7 +13,7 @@ module.exports = {
     },
 
     getHouse:(root,args) => {
-            return Houses.findOne({_id:args.id}).exec();
+            return Houses.findOne({_id:args.id}).populate('created_by').exec();
     }
 
     // getEvents:(root,args) => {

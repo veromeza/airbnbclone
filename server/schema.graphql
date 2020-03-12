@@ -33,7 +33,7 @@ input Houseadd {
   date:String
   address:Addressadd
   created_by:String
-  banner:String
+  banner:Upload
   tags:[String]
   photo:String
 }
