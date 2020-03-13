@@ -107,15 +107,20 @@ type House {
     _id:ID!
     title:String
     description:String
-    date:Float
+    date:Date
     address:Address
     assistants:[User]
     created_by:User
-    banner:String
+    banner:Upload
     tags:[String]
     is_active:Boolean
     createdAt:Date
     updatedAt:Date
+    date:String
+  huespedes:String
+  camas:String
+  wc:String
+  servicios:[String]
 
 }
 
