@@ -41,6 +41,22 @@ const HouseSchema = new Schema ({
     banner:{
         type:String
     },
+    huespedes:{
+        type:String,
+        required:true
+    },
+    camas:{
+        type:String,
+        required:true
+    },
+    baños:{
+        type:String,
+        required:true
+    },
+    servicios:{
+        type:[String],
+        required:true
+    },
     tags:{
         type:[String]
     },
