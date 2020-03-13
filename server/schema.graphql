@@ -35,9 +35,8 @@ input Houseadd {
   date:String
   huespedes:String
   camas:String
-  baños:String
+  wc:String
   servicios:[String]
-  
   created_by:String
   tags:[String]
   photo:String

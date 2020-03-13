@@ -49,7 +49,7 @@ const HouseSchema = new Schema ({
         type:String,
         required:true
     },
-    baños:{
+    wc:{
         type:String,
         required:true
     },
